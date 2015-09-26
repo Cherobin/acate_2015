@@ -27,6 +27,7 @@ public class Controle_Personagem : MonoBehaviour {
 		ml.color = number;
 		ml.life = 100;
 		vida.Add(ml);
+		GameControl.playersList.Add(this.gameObject);
 	}
 	
 	// Update is called once per frame

@@ -46,16 +46,17 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\GameControll.cs" />
      <Compile Include="Assets\scripts\Bonus_angle_shot.cs" />
      <Compile Include="Assets\scripts\Bonus_dist_shot.cs" />
      <Compile Include="Assets\scripts\Bonus_shot.cs" />
      <Compile Include="Assets\scripts\Box_Behavior.cs" />
+     <Compile Include="Assets\scripts\CancelFatherRotation.cs" />
      <Compile Include="Assets\scripts\ComportamentoDoTiro.cs" />
      <Compile Include="Assets\scripts\Controle_Arma_Fixa.cs" />
      <Compile Include="Assets\scripts\Controle_Arma_Movel.cs" />
      <Compile Include="Assets\scripts\Controle_Disparo.cs" />
      <Compile Include="Assets\scripts\Controle_Personagem.cs" />
+     <Compile Include="Assets\scripts\GameControl.cs" />
      <Compile Include="Assets\scripts\Onus_Angle_Shot.cs" />
      <Compile Include="Assets\scripts\Onus_dist_shot.cs" />
      <Compile Include="Assets\scripts\Onus_shot.cs" />

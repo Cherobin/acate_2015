@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameControll : MonoBehaviour {
+public class CancelFatherRotation : MonoBehaviour {
 
-	private static ArrayList playersList = new ArrayList();
 	// Use this for initialization
 	void Start () {
 	
@@ -11,6 +10,6 @@ public class GameControll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		transform.RotateAround(transform.position,new Vector3(0,0,1),-transform.rotation.eulerAngles.z);
 	}
 }

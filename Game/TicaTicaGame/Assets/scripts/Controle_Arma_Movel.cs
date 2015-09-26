@@ -7,13 +7,15 @@ public class Controle_Arma_Movel : MonoBehaviour {
 	Controle_Disparo controle_disparo;
 	Color gray;
 	public Vector3 direction;
+	private SpriteRenderer sr;
 
 	// Use this for initialization
 	void Start () {
 		rigidBody = GetComponent<Rigidbody2D>();
 		controle_disparo = GetComponent<Controle_Disparo>();
 		controle_disparo.shotDirection = 0;
-		gray = GetComponent<SpriteRenderer>().color;
+		sr = GetComponentInChildren<SpriteRenderer>();
+		gray = sr.color;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +30,7 @@ public class Controle_Arma_Movel : MonoBehaviour {
 		}
 
 		if(rigidBody.velocity.x == 0 && rigidBody.velocity.y == 0){
-			GetComponent<SpriteRenderer>().color = gray;
+			sr.color = gray;
 			controle_disparo.user = 0;
 		}else{
 			if(controle_disparo.user!=0){
@@ -48,7 +50,7 @@ public class Controle_Arma_Movel : MonoBehaviour {
 
 			Controle_Disparo cp = coll.gameObject.GetComponent<Controle_Disparo>();
 			if(cp.user!= controle_disparo.user){
-				GetComponent<SpriteRenderer>().color =coll.gameObject.GetComponent<SpriteRenderer>().color;
+				sr.color =coll.gameObject.GetComponent<SpriteRenderer>().color;
 				controle_disparo.user = coll.gameObject.GetComponent<Controle_Disparo>().user;
 			}
 		}

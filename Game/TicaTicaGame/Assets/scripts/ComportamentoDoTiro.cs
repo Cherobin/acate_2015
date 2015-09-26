@@ -54,8 +54,10 @@ public class ComportamentoDoTiro : MonoBehaviour {
 			Controle_Disparo cp = other.GetComponent<Controle_Disparo>();
 			if(cp.user!=owner){
 				Destroy(this.gameObject);
+				Debug.Log("Tirotiro");
 				other.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
 				other.GetComponent<Controle_Disparo>().user = owner;
+				other.GetComponent<Controle_Arma_Fixa>().timerReset = 10;
 			}
 		}else if(other.tag == "ArmaMovel"){
 			//faz nada
