@@ -14,6 +14,7 @@ public class Controle_Personagem : MonoBehaviour {
 	Rigidbody2D body;
 	private Controle_Disparo controleDisparo;
 	Animator animator;
+	Animator animator2;
 	
 	public ArrayList vida = new ArrayList();
 	
@@ -22,6 +23,7 @@ public class Controle_Personagem : MonoBehaviour {
 		body = GetComponent<Rigidbody2D>();
 		controleDisparo = GetComponent<Controle_Disparo>();
 		animator = GetComponent<Animator>();
+		animator2 = transform.GetChild(0).gameObject.GetComponent<Animator>();
 		controleDisparo.user = number;
 		ColorxLife ml = new ColorxLife();
 		ml.color = number;
@@ -53,6 +55,10 @@ public class Controle_Personagem : MonoBehaviour {
 		animator.SetBool("Right",false);
 		animator.SetBool("Down",false);
 		animator.SetBool("Left",false);
+		animator2.SetBool("ShotUp",false);
+		animator2.SetBool("ShotRight",false);
+		animator2.SetBool("ShotDown",false);
+		animator2.SetBool("ShotLeft",false);
 		if(x==0&&y==0){
 			return;
 		}
@@ -62,15 +68,23 @@ public class Controle_Personagem : MonoBehaviour {
 				//right
 				if(x>y){
 					animator.SetBool("Right",true);
+					animator2.SetBool("ShotRight",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Up",true);
+					animator2.SetBool("ShotUp",true);
+					controleDisparo.adjustShotStart = new Vector3(-0.3f,0,0);
 				}
 			}else{
 				//left
 				if(-x>y){
 					animator.SetBool("Left",true);
+					animator2.SetBool("ShotLeft",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Up",true);
+					animator2.SetBool("ShotUp",true);
+					controleDisparo.adjustShotStart = new Vector3(-0.3f,0,0);
 				}
 			}
 		}else{
@@ -79,15 +93,23 @@ public class Controle_Personagem : MonoBehaviour {
 				//right
 				if(x>-y){
 					animator.SetBool("Right",true);
+					animator2.SetBool("ShotRight",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Down",true);
+					animator2.SetBool("ShotDown",true);
+					controleDisparo.adjustShotStart = new Vector3(0.3f,0,0);
 				}
 			}else{
 				//left
 				if(-x>-y){
 					animator.SetBool("Left",true);
+					animator2.SetBool("ShotLeft",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Down",true);
+					animator2.SetBool("ShotDown",true);
+					controleDisparo.adjustShotStart = new Vector3(0.3f,0,0);
 				}
 			}
 		}

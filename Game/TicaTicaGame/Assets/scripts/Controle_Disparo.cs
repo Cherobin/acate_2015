@@ -14,6 +14,7 @@ public class Controle_Disparo : MonoBehaviour {
 	public int multiShot = 2;
 	public float multiShotAngleVariation = 360;
 	public int user = 0;
+	public Vector3 adjustShotStart = Vector3.zero;
 	// Use this for initialization
 	void Start () {
 	}
@@ -24,7 +25,7 @@ public class Controle_Disparo : MonoBehaviour {
 			if(tiroCounter<0){
 				if(multiShot<=1){
 					Vector2 front = new Vector2(Mathf.Cos(shotDirection),Mathf.Sin(shotDirection));
-					GameObject instanciadotiro = (GameObject)Instantiate(tiro,transform.position+new Vector3(front.x,front.y,0)*distanciaInicial,Quaternion.identity);
+					GameObject instanciadotiro = (GameObject)Instantiate(tiro,transform.position+adjustShotStart+new Vector3(front.x,front.y,0)*distanciaInicial,Quaternion.identity);
 					instanciadotiro.GetComponent<ComportamentoDoTiro>().owner = user;
 					Rigidbody2D rigidbodyTiro = instanciadotiro.GetComponent<Rigidbody2D>();
 					

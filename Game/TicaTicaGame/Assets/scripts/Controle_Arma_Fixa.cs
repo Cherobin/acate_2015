@@ -16,6 +16,7 @@ public class Controle_Arma_Fixa : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if(controle_disparo.user!=0){
 			controle_disparo.canShot = true;
 			timerReset -= Time.deltaTime;

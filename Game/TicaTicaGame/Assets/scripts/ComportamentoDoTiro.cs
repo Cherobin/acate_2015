@@ -33,7 +33,7 @@ public class ComportamentoDoTiro : MonoBehaviour {
 		}
 
 	}
-
+	
 	void OnTriggerEnter2D(Collider2D other) {
 		if(other.tag == "Tiro"){
 			if(other.GetComponent<SpriteRenderer>().color!=GetComponent<SpriteRenderer>().color){
@@ -49,6 +49,8 @@ public class ComportamentoDoTiro : MonoBehaviour {
 					other.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
 					other.GetComponent<Controle_Disparo>().user = owner;
 				}
+			}else{
+				GetComponents<CircleCollider2D>()[1].isTrigger = true;
 			}
 		}else if(other.tag == "ArmaFixa"){
 			Controle_Disparo cp = other.GetComponent<Controle_Disparo>();
@@ -64,6 +66,13 @@ public class ComportamentoDoTiro : MonoBehaviour {
 		}else if(other.tag == "Box"){
 			Destroy(this.gameObject);
 			other.GetComponent<Box_Behavior>().dropPrize();
+		}
+	}
+	
+	void OnTriggerExit2D(Collider2D other) {
+		Controle_Disparo cp = other.GetComponent<Controle_Disparo>();
+		if(cp!=null&&cp.user==owner){
+			GetComponents<CircleCollider2D>()[1].isTrigger = false;
 		}
 	}
 }
