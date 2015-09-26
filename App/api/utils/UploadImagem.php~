@@ -1,0 +1,39 @@
+<?php
+
+class UploadImagem extends Upload {
+    
+    private $imagem;
+    private $largura;
+    private $altura;
+    private $tipo;
+    
+    public function __construct($pasta, $arquivo){
+        parent::__construct($pasta, $arquivo);
+        $this->imagem = imagecreatefromstring(base64_decode($arquivo));
+    }
+    
+    public function redimensionar($novaLargura, $novaAltura){
+        if($this->largura >= $novaLargura || $this->altura >= $novaAltura){
+            $proporcao = $this->largura / $this->altura;
+            if($proporcao > 1){
+                $novaAltura = $novaLargura / $proporcao;
+            }else{
+                $novaLargura = $novaAltura / $proporcao;
+            }
+            
+            $tci = imagecreatetruecolor($novaLargura, $novaAltura);
+            imagecopyresampled($tci, $this->imagem, 0, 0, 0, 0, $novaLargura, $novaAltura, $this->largura, $this->altura);
+            $this->imagem = $tci;
+            
+            return true;
+        }
+        return false;
+    }
+    
+    public function salvar($extension = 'png'){
+        $upload = sprintf('%s/%s.%s', $this->pasta, uniqid(), $extension);
+        imagepng($this->imagem, $upload);
+        
+        return $upload;
+    }
+}
