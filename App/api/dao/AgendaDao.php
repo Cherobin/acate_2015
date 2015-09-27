@@ -19,12 +19,12 @@ class AgendaDao extends Dao{
         $stmt = $this->conn->prepare('SELECT * FROM agenda');
         $stmt->execute();
         
-        $companys = array();
+        $agendas = array();
         while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            $companys[] = new Agenda($row);
+            $agendas[] = new Agenda($row);
         }
         
-        return $companys;
+        return $agendas;
     }
     
     public function insert($agenda){

@@ -4,17 +4,26 @@ $app->group('/agenda', function() use($app){
     
     $app->get('/list', function() use ($app, $agendaController){
         $list = $agendaController->listAll();
-        include_once 'api/view/agenda/agendaListView.php';
+        $app->render("agenda/agendaListView.php", array("list" => $list));
+        $app->conn = null;
     });
     
     $app->get('/list/json', function() use ($app, $agendaController){
         $list = $agendaController->listAll();
+        header('Access-Control-Allow-Origin: *');
         echo json_encode($list);
+        $app->conn = null;
     });
     
     $app->get('/:id/new', function($id) use ($app, $agendaController){
         $list = $agendaController->listAll();
-        include_once 'api/view/agenda/agendaNewView.php';
+        $app->render("agenda/agendaNewView.php", array(
+            "pageTitle" => "Agendar horário",
+            "customHeader" => '<link href="'.BASE_URL.'/css/bootstrap-datetimepicker.min.css" rel="stylesheet">',
+            "includeFooter" => 'api/view/agenda/footerInclude/agendaNewViewFooterInclude.php',
+            "list" => $list
+        ));
+        $app->conn = null;
     });
     
     $app->post('/:id/new', function($id) use ($app, $agendaController){
@@ -30,15 +39,11 @@ $app->group('/agenda', function() use($app){
             $agenda->dateStart = $dateStart;
             $agenda->dateFinish = $dateFinish;
             $agendaController->insert($agenda);
-            
+            $app->conn = null;
+
+	    $app->redirect("/agenda/list");
         }else{
             $app->pass();
         }
-        
-    });
-    
-    $app->get('/:id/edit', function() use ($app, $agendaController){
-        $list = $agendaController->listAll();
-        include_once 'api/view/agenda/agendaNewView.php';
     });
 });

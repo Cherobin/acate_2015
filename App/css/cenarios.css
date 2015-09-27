@@ -1,0 +1,10 @@
+#janela_alert{
+	position:absolute;
+	top:20px;
+	left:30%;
+	z-index:2000;
+}
+
+img.manipulate {
+        border: 20px solid #fff;
+}

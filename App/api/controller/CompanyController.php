@@ -62,4 +62,9 @@ class CompanyController {
         return $dao->listAll();
     }
     
+    function getById($id){
+        $dao = new CompanyDao();
+        return $dao->getById($id);
+    }
+    
 }

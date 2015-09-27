@@ -4,11 +4,12 @@ $app->group('/room', function() use($app){
     
     $app->get('/list', function() use ($app, $roomController){
         $list = $roomController->listAll();
-        include_once 'api/view/room/roomListView.php';
+        $app->render("room/roomListView.php", array("list" => $list));
+	$app->conn = null;
     });
     
     $app->get('/new', function() use ($app, $roomController){
-        include_once 'api/view/room/roomNewView.php';
+        $app->render("room/roomNewView.php", array());
     });
     
     $app->post('/new', function() use ($app, $roomController){
@@ -21,6 +22,9 @@ $app->group('/room', function() use($app){
             $room->name = $name;
             $room->chairs = $chairs;
             $roomController->insert($room);
+	    $app->conn = null;
+
+	    $app->redirect("/room/list");
         }else{
             $app->pass();
         }

@@ -1,9 +1,6 @@
 <?php
 require_once 'phpqrcode/qrlib.php';
 
-require_once "api/view/viewError.php";
-require_once "api/view/viewNotFound.php";
-
 require_once 'api/model/Agenda.php';
 require_once 'api/model/Company.php';
 require_once 'api/model/Room.php';
@@ -15,13 +12,13 @@ require_once 'api/controller/AgendaController.php';
 require_once 'api/controller/CompanyController.php';
 require_once 'api/controller/RoomController.php';
 
+require_once 'api/route/mapaRoute.php';
 require_once 'api/route/agendaRoute.php';
 require_once 'api/route/companyRoute.php';
 require_once 'api/route/roomRoute.php';
 
 $app->notFound(function() use($app){
-    $app->response()->setBody('Foo');
-    $app->stop();
+    $app->render("mainView.php", array("pageTitle" => "Página principal"));
 });
 
 try{
@@ -35,5 +32,6 @@ try{
     );
     $app->conn->exec("set names utf8");
 }catch(Exception $e){
-    $app->render("api/view/viewError.php");
+    $app->render("errorView.php", array("pageTitle" => "Erro inesperado"));
+    $app->stop();
 }
