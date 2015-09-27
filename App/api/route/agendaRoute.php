@@ -9,8 +9,8 @@ $app->group('/agenda', function() use($app){
     });
     
     $app->get('/list/json', function() use ($app, $agendaController){
-        $list = $agendaController->listAll();
         header('Access-Control-Allow-Origin: *');
+        $list = $agendaController->listAll();
         echo json_encode($list);
         $app->conn = null;
     });

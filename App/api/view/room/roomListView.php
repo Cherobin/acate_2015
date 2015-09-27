@@ -1,5 +1,6 @@
 <?php
 include_once 'api/view/header.php';
+echo "<h2 class='text-center'>Lista de salas</h2>";
 foreach ($list as $room): ?>
     <div class="col-md-4 col-lg-3">
         <h2><?php echo $room->name; ?></h2>

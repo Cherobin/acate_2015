@@ -1,6 +1,7 @@
 <?php
 include_once 'api/view/header.php';
 ?>
+<h2 class="text-center">Cadastrar sala</h2>
 <form method="post" action="<?php echo BASE_URL.'/room/new'; ?>" enctype="multipart/form-data">
     <div class="form-group">
         <label for="name">Nome</label>

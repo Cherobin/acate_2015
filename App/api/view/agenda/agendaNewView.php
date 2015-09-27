@@ -1,6 +1,7 @@
 <?php
 include_once 'api/view/header.php';
 ?>
+<h2 class="text-center">Agendar horário</h2>
 <form method="post" action="<?php echo BASE_URL.'/agenda/'.$id.'/new'; ?>">
     <div class="form-group">
         <label for="owner">Responsável</label>

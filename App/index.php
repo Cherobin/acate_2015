@@ -1,8 +1,6 @@
 <?php
 error_reporting(E_ALL ^ E_NOTICE);
 
-define("BASE_URL", 'http://54.232.244.189');
-
 require_once 'Slim/Slim.php';
 
 \Slim\Slim::registerAutoloader();
@@ -12,6 +10,7 @@ $app = new \Slim\Slim(array(
 ));
 
 //Configurações da aplicação
+define("BASE_URL", 'http://54.232.244.189');
 $config = array(
     'database' => array(
         'host' => 'localhost' ,
