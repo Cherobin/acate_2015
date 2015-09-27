@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class Box_Behavior : MonoBehaviour {
-
+	
 	public GameObject prize;
+	public GameObject deathAnimation;
 	Rigidbody2D rb;
 	// Use this for initialization
 	void Start () {
@@ -30,9 +31,14 @@ public class Box_Behavior : MonoBehaviour {
 	}
 
 	public void dropPrize(){
-		Destroy(this.gameObject);
+		Explode();
 		if(prize!=null){
 			Instantiate(prize,this.gameObject.transform.position,this.gameObject.transform.rotation);
 		}
+	}
+	
+	void Explode(){
+		Instantiate(deathAnimation,transform.position,transform.rotation);
+		Destroy(this.gameObject);
 	}
 }

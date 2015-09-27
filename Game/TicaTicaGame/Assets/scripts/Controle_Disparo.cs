@@ -14,6 +14,7 @@ public class Controle_Disparo : MonoBehaviour {
 	public int multiShot = 2;
 	public float multiShotAngleVariation = 360;
 	public int user = 0;
+	public Vector3 adjustShotStart = Vector3.zero;
 	// Use this for initialization
 	void Start () {
 	}
@@ -24,7 +25,7 @@ public class Controle_Disparo : MonoBehaviour {
 			if(tiroCounter<0){
 				if(multiShot<=1){
 					Vector2 front = new Vector2(Mathf.Cos(shotDirection),Mathf.Sin(shotDirection));
-					GameObject instanciadotiro = (GameObject)Instantiate(tiro,transform.position+new Vector3(front.x,front.y,0)*distanciaInicial,Quaternion.identity);
+					GameObject instanciadotiro = (GameObject)Instantiate(tiro,transform.position+adjustShotStart+new Vector3(front.x,front.y,0)*distanciaInicial,Quaternion.identity);
 					instanciadotiro.GetComponent<ComportamentoDoTiro>().owner = user;
 					Rigidbody2D rigidbodyTiro = instanciadotiro.GetComponent<Rigidbody2D>();
 					
@@ -35,7 +36,6 @@ public class Controle_Disparo : MonoBehaviour {
 					float angleVariation = multiShotAngleVariation/180*Mathf.PI;
 					float step = angleVariation/(multiShot-1);
 					float startAng = -angleVariation/2;
-					Debug.Log("V "+angleVariation+" "+ multiShotAngleVariation+" >> "+step+" >> "+ startAng);
 					for(int i = 0;i<multiShot;i++){
 						Vector2 front = new Vector2(Mathf.Cos(shotDirection+startAng+step*i),Mathf.Sin(shotDirection+startAng+step*i));
 						GameObject instanciadotiro = (GameObject)Instantiate(tiro,transform.position+new Vector3(front.x,front.y,0)*distanciaInicial,Quaternion.identity);
@@ -43,7 +43,11 @@ public class Controle_Disparo : MonoBehaviour {
 						Rigidbody2D rigidbodyTiro = instanciadotiro.GetComponent<Rigidbody2D>();
 						
 						rigidbodyTiro.AddForce(front*velocidadeTiro);
-						instanciadotiro.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+						SpriteRenderer sr = GetComponent<SpriteRenderer>();
+						if(sr==null){
+							sr = GetComponentInChildren<SpriteRenderer>();
+						}
+						instanciadotiro.GetComponent<SpriteRenderer>().color = sr.color;
 					}
 					tiroCounter += frequenciaDeTiro;
 				}

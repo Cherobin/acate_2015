@@ -14,19 +14,26 @@ public class Controle_Personagem : MonoBehaviour {
 	Rigidbody2D body;
 	private Controle_Disparo controleDisparo;
 	Animator animator;
+	Animator animator2;
 	
 	public ArrayList vida = new ArrayList();
 	
 	// Use this for initialization
 	void Start () {
+		if(!GameControl.playersOn[number-1]){
+			Destroy(this.gameObject);
+			return;
+		}
 		body = GetComponent<Rigidbody2D>();
 		controleDisparo = GetComponent<Controle_Disparo>();
 		animator = GetComponent<Animator>();
+		animator2 = transform.GetChild(0).gameObject.GetComponent<Animator>();
 		controleDisparo.user = number;
 		ColorxLife ml = new ColorxLife();
 		ml.color = number;
 		ml.life = 100;
 		vida.Add(ml);
+		GameControl.playersList.Add(this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -41,6 +48,12 @@ public class Controle_Personagem : MonoBehaviour {
 		case 2:
 			ControlPlayer2();
 			break;
+		case 3:
+			ControlPlayer3();
+			break;
+		case 4:
+			ControlPlayer4();
+			break;
 		}
 		decideDirection();
 	}
@@ -52,6 +65,10 @@ public class Controle_Personagem : MonoBehaviour {
 		animator.SetBool("Right",false);
 		animator.SetBool("Down",false);
 		animator.SetBool("Left",false);
+		animator2.SetBool("ShotUp",false);
+		animator2.SetBool("ShotRight",false);
+		animator2.SetBool("ShotDown",false);
+		animator2.SetBool("ShotLeft",false);
 		if(x==0&&y==0){
 			return;
 		}
@@ -61,15 +78,23 @@ public class Controle_Personagem : MonoBehaviour {
 				//right
 				if(x>y){
 					animator.SetBool("Right",true);
+					animator2.SetBool("ShotRight",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Up",true);
+					animator2.SetBool("ShotUp",true);
+					controleDisparo.adjustShotStart = new Vector3(-0.3f,0,0);
 				}
 			}else{
 				//left
 				if(-x>y){
 					animator.SetBool("Left",true);
+					animator2.SetBool("ShotLeft",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Up",true);
+					animator2.SetBool("ShotUp",true);
+					controleDisparo.adjustShotStart = new Vector3(-0.3f,0,0);
 				}
 			}
 		}else{
@@ -78,15 +103,23 @@ public class Controle_Personagem : MonoBehaviour {
 				//right
 				if(x>-y){
 					animator.SetBool("Right",true);
+					animator2.SetBool("ShotRight",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Down",true);
+					animator2.SetBool("ShotDown",true);
+					controleDisparo.adjustShotStart = new Vector3(0.3f,0,0);
 				}
 			}else{
 				//left
 				if(-x>-y){
 					animator.SetBool("Left",true);
+					animator2.SetBool("ShotLeft",true);
+					controleDisparo.adjustShotStart = Vector3.zero;
 				}else{
 					animator.SetBool("Down",true);
+					animator2.SetBool("ShotDown",true);
+					controleDisparo.adjustShotStart = new Vector3(0.3f,0,0);
 				}
 			}
 		}
@@ -161,6 +194,71 @@ public class Controle_Personagem : MonoBehaviour {
 			controleDisparo.canShot = true;
 		}
 	}
+
+	void ControlPlayer3(){
+		
+		if(Input.GetKey(KeyCode.Keypad1)){
+			body.AddForce(-Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.Keypad3)){
+			body.AddForce(Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.Keypad5)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.Keypad2)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.KeypadEnter)){
+			controleDisparo.canShot = true;
+		}
+	}
+	
+	void ControlPlayer4(){
+		
+		if(Input.GetKey(KeyCode.J)){
+			body.AddForce(-Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.L)){
+			body.AddForce(Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.I)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.K)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.RightShift)){
+			controleDisparo.canShot = true;
+		}
+	}
+
 	void SetShotDirection(){
 		controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
 	}

@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameControll : MonoBehaviour {
+public class LoadWinnerColor : MonoBehaviour {
 
-	private static ArrayList playersList = new ArrayList();
 	// Use this for initialization
 	void Start () {
-	
+		GetComponent<SpriteRenderer>().color = GameControl.lastWinnerColor;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+	
 	}
 }
