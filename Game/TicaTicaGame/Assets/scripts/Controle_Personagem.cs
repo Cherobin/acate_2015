@@ -44,6 +44,9 @@ public class Controle_Personagem : MonoBehaviour {
 		case 2:
 			ControlPlayer2();
 			break;
+		case 3:
+			ControlPlayer3();
+			break;
 		}
 		decideDirection();
 	}
@@ -184,6 +187,39 @@ public class Controle_Personagem : MonoBehaviour {
 			controleDisparo.canShot = true;
 		}
 	}
+
+	void ControlPlayer3(){
+		
+		if(Input.GetKey(KeyCode.LeftArrow)){
+			body.AddForce(-Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.RightArrow)){
+			body.AddForce(Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.UpArrow)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.DownArrow)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.KeypadEnter)){
+			controleDisparo.canShot = true;
+		}
+	}
+
 	void SetShotDirection(){
 		controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
 	}
