@@ -76,7 +76,12 @@ public class ComportamentoDoTiro : MonoBehaviour {
 	}
 
 	void Explode(){
-		((GameObject)Instantiate(deathAnimation,transform.position,transform.rotation)).GetComponent<SpriteRenderer>().color = color;
+		GameObject obj = ((GameObject)Instantiate(deathAnimation,transform.position,transform.rotation));
+		SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
+		if(sr==null){
+			sr = obj.GetComponentInChildren<SpriteRenderer>();
+		}
+		sr.color = color;
 		Destroy(this.gameObject);
 	}
 	

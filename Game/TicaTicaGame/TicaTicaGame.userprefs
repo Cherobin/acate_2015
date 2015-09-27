@@ -1,22 +1,24 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Jumpy.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\ComportamentoDoTiro.cs">
     <Files>
-      <File FileName="Assets\scripts\GameControl.cs" Line="26" Column="5" />
-      <File FileName="Assets\scripts\ComportamentoDoTiro.cs" Line="25" Column="4" />
-      <File FileName="Assets\scripts\Controle_Personagem.cs" Line="1" Column="6" />
+      <File FileName="Assets\Splash_Actor.cs" Line="166" Column="24" />
+      <File FileName="Assets\scripts\GameControl.cs" Line="27" Column="25" />
+      <File FileName="Assets\scripts\ComportamentoDoTiro.cs" Line="63" Column="23" />
+      <File FileName="Assets\scripts\Controle_Personagem.cs" Line="60" Column="1" />
       <File FileName="Assets\scripts\Controle_Disparo.cs" Line="23" Column="18" />
-      <File FileName="Assets\scripts\Bonus_shot.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\Box_Behavior.cs" Line="41" Column="67" />
+      <File FileName="Assets\scripts\Bonus_shot.cs" Line="26" Column="3" />
+      <File FileName="Assets\scripts\Box_Behavior.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Onus_Angle_Shot.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Controle_Arma_Fixa.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Controle_Arma_Movel.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Bonus_dist_shot.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Onus_dist_shot.cs" Line="1" Column="1" />
       <File FileName="Assets\LoadWinnerColor.cs" Line="1" Column="1" />
-      <File FileName="Assets\GoToNext.cs" Line="16" Column="15" />
-      <File FileName="Assets\Jumpy.cs" Line="23" Column="42" />
-      <File FileName="Assets\DeleteWhenReady.cs" Line="18" Column="3" />
+      <File FileName="Assets\GoToNext.cs" Line="1" Column="1" />
+      <File FileName="Assets\Jumpy.cs" Line="1" Column="1" />
+      <File FileName="Assets\DeleteWhenReady.cs" Line="1" Column="1" />
+      <File FileName="Assets\PaintScript.cs" Line="22" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

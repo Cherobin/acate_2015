@@ -50,6 +50,9 @@
      <Compile Include="Assets\GoToNext.cs" />
      <Compile Include="Assets\Jumpy.cs" />
      <Compile Include="Assets\LoadWinnerColor.cs" />
+     <Compile Include="Assets\PaintScript.cs" />
+     <Compile Include="Assets\SplashActorGreen.cs" />
+     <Compile Include="Assets\Splash_Actor.cs" />
      <Compile Include="Assets\scripts\Bonus_angle_shot.cs" />
      <Compile Include="Assets\scripts\Bonus_dist_shot.cs" />
      <Compile Include="Assets\scripts\Bonus_shot.cs" />
