@@ -20,6 +20,10 @@ public class Controle_Personagem : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+		if(!GameControl.playersOn[number-1]){
+			Destroy(this.gameObject);
+			return;
+		}
 		body = GetComponent<Rigidbody2D>();
 		controleDisparo = GetComponent<Controle_Disparo>();
 		animator = GetComponent<Animator>();
@@ -46,6 +50,9 @@ public class Controle_Personagem : MonoBehaviour {
 			break;
 		case 3:
 			ControlPlayer3();
+			break;
+		case 4:
+			ControlPlayer4();
 			break;
 		}
 		decideDirection();
@@ -190,25 +197,25 @@ public class Controle_Personagem : MonoBehaviour {
 
 	void ControlPlayer3(){
 		
-		if(Input.GetKey(KeyCode.LeftArrow)){
+		if(Input.GetKey(KeyCode.Keypad1)){
 			body.AddForce(-Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.RightArrow)){
+		if(Input.GetKey(KeyCode.Keypad3)){
 			body.AddForce(Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.UpArrow)){
+		if(Input.GetKey(KeyCode.Keypad5)){
 			body.AddForce(Vector2.up*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.DownArrow)){
+		if(Input.GetKey(KeyCode.Keypad2)){
 			body.AddForce(-Vector2.up*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
@@ -216,6 +223,38 @@ public class Controle_Personagem : MonoBehaviour {
 		}
 		
 		if(Input.GetKey(KeyCode.KeypadEnter)){
+			controleDisparo.canShot = true;
+		}
+	}
+	
+	void ControlPlayer4(){
+		
+		if(Input.GetKey(KeyCode.J)){
+			body.AddForce(-Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.L)){
+			body.AddForce(Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.I)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		if(Input.GetKey(KeyCode.K)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.RightShift)){
 			controleDisparo.canShot = true;
 		}
 	}

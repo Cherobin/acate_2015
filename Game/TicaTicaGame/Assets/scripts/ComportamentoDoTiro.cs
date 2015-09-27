@@ -4,11 +4,16 @@ using System.Collections;
 public class ComportamentoDoTiro : MonoBehaviour {
 
 	public int owner;
+	public GameObject deathAnimation;
 	Rigidbody2D rb;
 	float slowestSpeedAllowed = 1;
+	SpriteRenderer sr;
+	Color color;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
+		sr = GetComponent<SpriteRenderer>();
+		color = sr.color;
 	}
 	
 	// Update is called once per frame
@@ -17,7 +22,7 @@ public class ComportamentoDoTiro : MonoBehaviour {
 		   rb.velocity.x>-slowestSpeedAllowed&&
 		   rb.velocity.y<slowestSpeedAllowed&&
 		   rb.velocity.y>-slowestSpeedAllowed){
-			Destroy(this.gameObject);
+			Explode();
 		}else{
 			if(rb.velocity.x<0){
 				rb.velocity += Vector2.right* 5 * Time.deltaTime;
@@ -36,17 +41,18 @@ public class ComportamentoDoTiro : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D other) {
 		if(other.tag == "Tiro"){
-			if(other.GetComponent<SpriteRenderer>().color!=GetComponent<SpriteRenderer>().color){
-				Destroy(this.gameObject);
+			if(other.GetComponent<SpriteRenderer>().color!=color){
+				Explode();
 			}
 		}else if(other.tag == "Parede"){
-			Destroy(this.gameObject);
+			Explode();
+			Instantiate(deathAnimation,transform.position,transform.rotation);
 		}else if(other.tag == "Player"){
 			Controle_Disparo cp = other.GetComponent<Controle_Disparo>();
 			if(cp.user!=owner){
-				Destroy(this.gameObject);
+				Explode();
 				if(other.GetComponent<Controle_Personagem>().takeHit(owner)){
-					other.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+					other.GetComponent<SpriteRenderer>().color = color;
 					other.GetComponent<Controle_Disparo>().user = owner;
 				}
 			}else{
@@ -55,18 +61,23 @@ public class ComportamentoDoTiro : MonoBehaviour {
 		}else if(other.tag == "ArmaFixa"){
 			Controle_Disparo cp = other.GetComponent<Controle_Disparo>();
 			if(cp.user!=owner){
-				Destroy(this.gameObject);
+				Explode();
 				Debug.Log("Tirotiro");
-				other.GetComponent<SpriteRenderer>().color = GetComponent<SpriteRenderer>().color;
+				other.GetComponent<SpriteRenderer>().color = color;
 				other.GetComponent<Controle_Disparo>().user = owner;
 				other.GetComponent<Controle_Arma_Fixa>().timerReset = 10;
 			}
 		}else if(other.tag == "ArmaMovel"){
 			//faz nada
 		}else if(other.tag == "Box"){
-			Destroy(this.gameObject);
+			Explode();
 			other.GetComponent<Box_Behavior>().dropPrize();
 		}
+	}
+
+	void Explode(){
+		((GameObject)Instantiate(deathAnimation,transform.position,transform.rotation)).GetComponent<SpriteRenderer>().color = color;
+		Destroy(this.gameObject);
 	}
 	
 	void OnTriggerExit2D(Collider2D other) {
