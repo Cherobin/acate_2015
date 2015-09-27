@@ -1,4 +1,5 @@
 <?php
 include_once 'api/view/header.php';
-echo "Erro inexperado, entre em contato com os administradores";
+echo "<h2>Erro inexperado</h2>";
+echo "<p>Por favor entre em contato com os administradores</p>";
 include_once 'api/view/footer.php';

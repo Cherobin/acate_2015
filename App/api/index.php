@@ -12,13 +12,13 @@ require_once 'api/controller/AgendaController.php';
 require_once 'api/controller/CompanyController.php';
 require_once 'api/controller/RoomController.php';
 
-require_once 'api/route/mapaRoute.php';
 require_once 'api/route/agendaRoute.php';
 require_once 'api/route/companyRoute.php';
 require_once 'api/route/roomRoute.php';
+require_once 'api/route/otherRoute.php';
 
 $app->notFound(function() use($app){
-    $app->render("mainView.php", array("pageTitle" => "Página principal"));
+    $app->render("notFoundView.php", array("pageTitle" => "Página principal"));
 });
 
 try{
@@ -33,5 +33,5 @@ try{
     $app->conn->exec("set names utf8");
 }catch(Exception $e){
     $app->render("errorView.php", array("pageTitle" => "Erro inesperado"));
-    $app->stop();
+    die();
 }

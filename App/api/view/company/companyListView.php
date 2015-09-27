@@ -1,5 +1,6 @@
 <?php
 include_once 'api/view/header.php';
+echo "<h2 class='text-center'>Lista de empresas</h2>";
 foreach ($list as $agenda): ?>
     <div class="col-md-4 col-lg-3">
         <img class="img-thumbnail" src="<?php echo BASE_URL.'/'.$agenda->logo; ?>" />
