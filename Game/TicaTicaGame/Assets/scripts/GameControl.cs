@@ -7,6 +7,7 @@ public class GameControl : MonoBehaviour {
 	public static bool[] playersOn = new bool[]{true,true,true,true};
 	public static int lastWinner = -1;
 	public static Color lastWinnerColor = Color.black;
+	 
 	// Use this for initialization
 	void Start () {
 
@@ -24,7 +25,10 @@ public class GameControl : MonoBehaviour {
 				DestroyImmediate((GameObject)playersList[0]);
 				playersList.Remove((GameObject)playersList[0]);
 			}
-			Application.LoadLevel("win_screen");
+ 
+				Application.LoadLevel("win_screen");
+			 
+
 		}
 	}
 

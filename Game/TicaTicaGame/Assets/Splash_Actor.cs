@@ -163,6 +163,6 @@ public class Splash_Actor : MonoBehaviour {
 	}
 	
 	void FifthAction(){
-		Application.LoadLevel("battle");
+		Application.LoadLevel("menu");
 	}
 }

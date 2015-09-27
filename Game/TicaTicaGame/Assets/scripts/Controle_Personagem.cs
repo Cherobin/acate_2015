@@ -15,15 +15,22 @@ public class Controle_Personagem : MonoBehaviour {
 	private Controle_Disparo controleDisparo;
 	Animator animator;
 	Animator animator2;
-	
+	 
+	public GameObject cores;
 	public ArrayList vida = new ArrayList();
-	
+	public GameObject tiroPinta;
+
+	public AudioClip convertido;
+	public AudioClip somAtira;
+
 	// Use this for initialization
 	void Start () {
 		if(!GameControl.playersOn[number-1]){
 			Destroy(this.gameObject);
 			return;
 		}
+
+
 		body = GetComponent<Rigidbody2D>();
 		controleDisparo = GetComponent<Controle_Disparo>();
 		animator = GetComponent<Animator>();
@@ -125,7 +132,32 @@ public class Controle_Personagem : MonoBehaviour {
 		}
 	}
 
+	GameObject getCorrectPlayer(int color){
+		for(int i = 0; i< GameControl.playersList.Count;i++){
+			if(((GameObject)GameControl.playersList[i]).GetComponent<Controle_Personagem>().number==color){
+				return (GameObject)GameControl.playersList[i];
+			}
+		}
+		return null;
+	}
+
 	public bool takeHit(int color){
+
+
+		float auxX = transform.position.x + UnityEngine.Random.Range((float)-0.3, (float)0.3);
+		float auxY = transform.position.y + UnityEngine.Random.Range((float)-0.3, (float)0.3);
+
+
+		GameObject tinta = (GameObject) Instantiate ( tiroPinta, new Vector3((auxX) , (auxY), transform.position.z), Quaternion.identity);
+
+
+
+		  
+
+		tinta.GetComponent<SpriteRenderer>().color = (getCorrectPlayer(color)).GetComponent<SpriteRenderer>().color;
+		
+		tinta.transform.parent = cores.transform;
+
 		((ColorxLife)vida[0]).life -= 10;
 		for(int i = 1;i<vida.Count;i++){
 			if(color == ((ColorxLife)vida[i]).color){
@@ -136,12 +168,23 @@ public class Controle_Personagem : MonoBehaviour {
 					mylife.color = color;
 					mylife.life = 100;
 					vida.Add(mylife);
+					AudioSource.PlayClipAtPoint(convertido, transform.position);
+
+
+					foreach (Transform childTransform in cores.transform) Destroy(childTransform.gameObject);					 
 					return true;
-				}else{
+				}else{ 
 					return false;
 				}
+
+
+		
 			}
 		}
+
+		 
+		
+
 		ColorxLife ml = new ColorxLife();
 		ml.color = color;
 		ml.life = 10;
@@ -151,8 +194,48 @@ public class Controle_Personagem : MonoBehaviour {
 	
 	void ControlPlayer1(){
 
+		/*if(Input.GetKey(KeyCode.Joystick1Button13)){
+			body.AddForce(Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
 		
-		body.AddForce(Input.GetAxis("VerticalJ")*Vector2.up*speed);
+		if(Input.GetKey(KeyCode.Joystick1Button15)){
+			body.AddForce(-Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.Joystick1Button12)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.Joystick1Button14)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}*/
+
+		body.AddForce(Input.GetAxis("Vertical1")*Vector2.up*speed);
+		body.AddForce(Input.GetAxis("Horizontal1")*Vector2.right*speed);
+		if(body.velocity!=Vector2.zero){
+			controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
+		}
+		
+		if(Input.GetKey(KeyCode.Joystick1Button2)||Input.GetKey(KeyCode.Joystick1Button1)||Input.GetKey(KeyCode.Joystick1Button3)||Input.GetKey(KeyCode.Joystick1Button0)){
+			controleDisparo.canShot = true;
+			if(UnityEngine.Random.Range(0, 10)>8)
+				AudioSource.PlayClipAtPoint(somAtira, transform.position);
+		}
+
+
+	/*	body.AddForce(Input.GetAxis("Vertical")*Vector2.up*speed);
 		body.AddForce(Input.GetAxis("HorizontalJ")*Vector2.right*speed);
 		if(body.velocity!=Vector2.zero){
 			controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
@@ -161,101 +244,139 @@ public class Controle_Personagem : MonoBehaviour {
 		if(Input.GetKey(KeyCode.JoystickButton1)){
 			controleDisparo.canShot = true;
 		}
+
+
+		if(Input.GetKey(Input.GetJoystickNames()[i].TrimStart 	)){
+			controleDisparo.canShot = true;
+		}
+*/
 	}
 	
 	void ControlPlayer2(){
-
-		if(Input.GetKey(KeyCode.A)){
-			body.AddForce(-Vector2.right*speed);
-			if(body.velocity!=Vector2.zero){
-				SetShotDirection();
-			}
-		}
-		if(Input.GetKey(KeyCode.D)){
+		/*body.AddForce(Input.GetAxis("Vertical2")*Vector2.up*speed);
+		if(Input.GetKey(KeyCode.Joystick2Button13)){
 			body.AddForce(Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.W)){
+	
+		if(Input.GetKey(KeyCode.Joystick2Button15)){
+			body.AddForce(-Vector2.right*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+
+		if(Input.GetKey(KeyCode.Joystick2Button12)){
 			body.AddForce(Vector2.up*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.S)){
+
+		if(Input.GetKey(KeyCode.Joystick2Button14)){
 			body.AddForce(-Vector2.up*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
+		}*/
+
+		body.AddForce(-Input.GetAxis("Vertical2")*Vector2.up*speed);
+		body.AddForce(Input.GetAxis("Horizontal2")*Vector2.right*speed);
+		if(body.velocity!=Vector2.zero){
+			controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
 		}
 		
-		if(Input.GetKey(KeyCode.Space)){
+		if(Input.GetKey(KeyCode.Joystick2Button2)||Input.GetKey(KeyCode.Joystick2Button1)||Input.GetKey(KeyCode.Joystick2Button3)||Input.GetKey(KeyCode.Joystick2Button0)){
 			controleDisparo.canShot = true;
+			if(UnityEngine.Random.Range(0, 10)>8)
+				AudioSource.PlayClipAtPoint(somAtira, transform.position);;
 		}
 	}
 
 	void ControlPlayer3(){
-		
-		if(Input.GetKey(KeyCode.Keypad1)){
-			body.AddForce(-Vector2.right*speed);
-			if(body.velocity!=Vector2.zero){
-				SetShotDirection();
-			}
-		}
-		if(Input.GetKey(KeyCode.Keypad3)){
+		/*
+		if(Input.GetKey(KeyCode.Joystick3Button13)){
 			body.AddForce(Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.Keypad5)){
-			body.AddForce(Vector2.up*speed);
-			if(body.velocity!=Vector2.zero){
-				SetShotDirection();
-			}
-		}
-		if(Input.GetKey(KeyCode.Keypad2)){
-			body.AddForce(-Vector2.up*speed);
+		
+		if(Input.GetKey(KeyCode.Joystick3Button15)){
+			body.AddForce(-Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
 		
-		if(Input.GetKey(KeyCode.KeypadEnter)){
+		if(Input.GetKey(KeyCode.Joystick3Button12)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.Joystick3Button14)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}*/
+
+		body.AddForce(-Input.GetAxis("Vertical3")*Vector2.up*speed);
+		body.AddForce(Input.GetAxis("Horizontal3")*Vector2.right*speed);
+		if(body.velocity!=Vector2.zero){
+			controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
+		}
+
+		if(Input.GetKey(KeyCode.Joystick3Button2)||Input.GetKey(KeyCode.Joystick3Button1)||Input.GetKey(KeyCode.Joystick3Button3)||Input.GetKey(KeyCode.Joystick3Button0)){
 			controleDisparo.canShot = true;
+			if(UnityEngine.Random.Range(0, 10)>8)
+				AudioSource.PlayClipAtPoint(somAtira, transform.position);
 		}
 	}
 	
 	void ControlPlayer4(){
-		
-		if(Input.GetKey(KeyCode.J)){
-			body.AddForce(-Vector2.right*speed);
-			if(body.velocity!=Vector2.zero){
-				SetShotDirection();
-			}
-		}
-		if(Input.GetKey(KeyCode.L)){
+		/*if(Input.GetKey(KeyCode.Joystick4Button13)){
 			body.AddForce(Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
-		if(Input.GetKey(KeyCode.I)){
-			body.AddForce(Vector2.up*speed);
-			if(body.velocity!=Vector2.zero){
-				SetShotDirection();
-			}
-		}
-		if(Input.GetKey(KeyCode.K)){
-			body.AddForce(-Vector2.up*speed);
+		
+		if(Input.GetKey(KeyCode.Joystick4Button15)){
+			body.AddForce(-Vector2.right*speed);
 			if(body.velocity!=Vector2.zero){
 				SetShotDirection();
 			}
 		}
 		
-		if(Input.GetKey(KeyCode.RightShift)){
+		if(Input.GetKey(KeyCode.Joystick4Button12)){
+			body.AddForce(Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}
+		
+		if(Input.GetKey(KeyCode.Joystick4Button14)){
+			body.AddForce(-Vector2.up*speed);
+			if(body.velocity!=Vector2.zero){
+				SetShotDirection();
+			}
+		}*/
+
+		body.AddForce(-Input.GetAxis("Vertical4")*Vector2.up*speed);
+		body.AddForce(Input.GetAxis("Horizontal4")*Vector2.right*speed);
+		if(body.velocity!=Vector2.zero){
+			controleDisparo.shotDirection = Mathf.Atan2(body.velocity.y,body.velocity.x);
+		}
+		
+		if(Input.GetKey(KeyCode.Joystick4Button2)||Input.GetKey(KeyCode.Joystick4Button1)||Input.GetKey(KeyCode.Joystick4Button3)||Input.GetKey(KeyCode.Joystick4Button0)){
 			controleDisparo.canShot = true;
+			if(UnityEngine.Random.Range(0, 10)>8)
+				AudioSource.PlayClipAtPoint(somAtira, transform.position);
 		}
 	}
 

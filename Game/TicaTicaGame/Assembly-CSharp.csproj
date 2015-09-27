@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\DeleteWhenReady.cs" />
-     <Compile Include="Assets\GoToNext.cs" />
+     <Compile Include="Assets\Follow.cs" />
      <Compile Include="Assets\Jumpy.cs" />
      <Compile Include="Assets\LoadWinnerColor.cs" />
      <Compile Include="Assets\PaintScript.cs" />
@@ -64,6 +64,8 @@
      <Compile Include="Assets\scripts\Controle_Disparo.cs" />
      <Compile Include="Assets\scripts\Controle_Personagem.cs" />
      <Compile Include="Assets\scripts\GameControl.cs" />
+     <Compile Include="Assets\scripts\GoToNext.cs" />
+     <Compile Include="Assets\scripts\GoToNextButton.cs" />
      <Compile Include="Assets\scripts\Onus_Angle_Shot.cs" />
      <Compile Include="Assets\scripts\Onus_dist_shot.cs" />
      <Compile Include="Assets\scripts\Onus_shot.cs" />

@@ -9,6 +9,8 @@ public class ComportamentoDoTiro : MonoBehaviour {
 	float slowestSpeedAllowed = 1;
 	SpriteRenderer sr;
 	Color color;
+	public AudioClip dano;
+	public int tocaAudio = 0;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
@@ -76,6 +78,8 @@ public class ComportamentoDoTiro : MonoBehaviour {
 	}
 
 	void Explode(){
+		if(UnityEngine.Random.Range(0, 10)>=tocaAudio)
+			AudioSource.PlayClipAtPoint(dano, transform.position);
 		GameObject obj = ((GameObject)Instantiate(deathAnimation,transform.position,transform.rotation));
 		SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
 		if(sr==null){
